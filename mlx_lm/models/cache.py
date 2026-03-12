@@ -282,6 +282,8 @@ class QuantizedKVCache(_BaseCache):
 
     @property
     def state(self):
+        if self.keys is None:
+            return None, None
         if self.offset == self.keys[0].shape[2]:
             return self.keys, self.values
         else:
@@ -357,6 +359,8 @@ class KVCache(_BaseCache):
 
     @property
     def state(self):
+        if self.keys is None:
+            return None, None
         if self.offset == self.keys.shape[2]:
             return self.keys, self.values
         else:
@@ -517,6 +521,8 @@ class RotatingKVCache(_BaseCache):
 
     @property
     def state(self):
+        if self.keys is None:
+            return None, None
         if self.offset < self.keys.shape[2]:
             return self.keys[..., : self.offset, :], self.values[..., : self.offset, :]
         else:
@@ -723,6 +729,8 @@ class ChunkedKVCache(_BaseCache):
 
     @property
     def state(self):
+        if self.keys is None:
+            return None, None
         if self.offset == self.keys.shape[2]:
             return self.keys, self.values
         else:
